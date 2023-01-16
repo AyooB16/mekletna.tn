@@ -132,7 +132,7 @@ const SignUp = () => {
                       </div>
                       <div className="form-group">
                           <Field type="checkbox" name="acceptTerms" id="acceptTerms" className="agree-term" />
-                          <label htmlFor="acceptTerms" className="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" className="term-service">Terms of service</a></label>
+                          <label htmlFor="acceptTerms" className="label-agree-term"><span><span></span></span>J'ai lu et j'accepte les  <a href="#" className="term-service">Termes et Conditions  </a></label>
                           <ErrorMessage
                                         name="acceptTerms"
                                         component="small"
