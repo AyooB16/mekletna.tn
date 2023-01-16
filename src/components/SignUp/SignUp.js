@@ -3,29 +3,32 @@ import SignUpImage from '../../assets/signup-image.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-
+import "yup-phone";
 const validationSchema = Yup.object().shape({
   name: Yup.string()
-      .min(5, "trop petit")
-      .max(50, "trop long!")
+      .min(5, "Nom et pernom invalide")
+      .max(30, "Nom et pernom invalide")
       .required("Ce champ est obligatoire"),
   username: Yup.string()
-      .min(2, "trop petit")
-      .max(10, "trop long!")
+      .min(5, "Nom d'utilisateur doit etre minimum 5 caractere")
+      .max(10, "Nom d'utilisateur doit etre maximum 5 caractere")
       .required("Ce champ est obligatoire"),
   phone: Yup.string()
-      .length(8, "Le numéro de téléphone doit être 8 chiffres")
+      .phone("TN","Numéro de téléphone est invalide")
       .required("Ce champ est obligatoire"),
   adress: Yup.string()
       .min(8, "Adresse invalide")
-      .max(50, "trop long!")
+      .max(50, "Adresse invalide")
       .required("Ce champ est obligatoire"),
   email: Yup.string()
       .email("Email invalide")
       .required("L'email est obligatoire"),
   password: Yup.string()
       .required("Mot de passe est obligatoire")
-      .min(8, "Mot de passe doit être plus grand que 8 caractères")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*+-])(?=.{8,})/,
+        "Minimum 8 caractères, Caractère majuscule, Caractère minuscule, Nombre et un Caractère speciale"
+      )
       .max(50, "Mot de passe doit être plus petit que 50 caractères"),
   confirmPassword: Yup.string()
       .required("Confirmation de mot de passe est obligatoire")
@@ -33,14 +36,18 @@ const validationSchema = Yup.object().shape({
           [Yup.ref("password"), null],
           "Le mot de passe de confirmation ne correspond pas"
       ),
+  acceptTerms: Yup.bool().oneOf([true], "Accepter les conditions est obligatoire"),
+
 });
 const initialValues = {
   name: "",
   username: "",
   adress:"",
+  phone:"",
   email: "",
   password: "",
   confirmPassword: "",
+  acceptTerms:false,
 };
 const handleSubmit = (values) => {
   console.log(values)
@@ -123,10 +130,15 @@ const SignUp = () => {
                                         className="text-danger"
                                     />
                       </div>
-                      {/* <div className="form-group">
-                          <input type="checkbox" name="acceptTerms" id="acceptTerms" className="agree-term" />
+                      <div className="form-group">
+                          <Field type="checkbox" name="acceptTerms" id="acceptTerms" className="agree-term" />
                           <label htmlFor="acceptTerms" className="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" className="term-service">Terms of service</a></label>
-                      </div> */}
+                          <ErrorMessage
+                                        name="acceptTerms"
+                                        component="small"
+                                        className="text-danger"
+                                    />
+                      </div>
                       <div className="form-group form-button">
                       <input type="submit" className="form-submit" value="Register"/>
                       </div>
