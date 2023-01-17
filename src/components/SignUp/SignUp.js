@@ -1,17 +1,21 @@
 import "./SignUp.css"
+import { useState } from "react";
 import SignUpImage from '../../assets/signup-image.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
+import Select from "react-select";
 import * as Yup from 'yup';
 import "yup-phone";
+
 const validationSchema = Yup.object().shape({
+
   name: Yup.string()
       .min(5, "Nom et pernom invalide")
       .max(30, "Nom et pernom invalide")
       .required("Ce champ est obligatoire"),
   username: Yup.string()
-      .min(5, "Nom d'utilisateur doit etre minimum 5 caractere")
-      .max(10, "Nom d'utilisateur doit etre maximum 5 caractere")
+      .min(5, "Nom d'utilisateur doit etre minimum 5 caracteres")
+      .max(20, "Nom d'utilisateur doit etre maximum 20 caracteres")
       .required("Ce champ est obligatoire"),
   phone: Yup.string()
       .phone("TN","Numéro de téléphone est invalide")
@@ -20,6 +24,9 @@ const validationSchema = Yup.object().shape({
       .min(8, "Adresse invalide")
       .max(50, "Adresse invalide")
       .required("Ce champ est obligatoire"),
+type: Yup.string()
+      .required("Ce champ est obligatoire")
+      .oneOf(["client","traiteur"],"Invalide type"),
   email: Yup.string()
       .email("Email invalide")
       .required("L'email est obligatoire"),
@@ -39,12 +46,19 @@ const validationSchema = Yup.object().shape({
   acceptTerms: Yup.bool().oneOf([true], "Accepter les conditions est obligatoire"),
 
 });
+const typeOptions = [
+    { label: "Client", value: "client" },
+    { label: "Traiteur", value: "traiteur" }
+  ];
+ 
+
 const initialValues = {
   name: "",
   username: "",
   adress:"",
   phone:"",
   email: "",
+  type:"",
   password: "",
   confirmPassword: "",
   acceptTerms:false,
@@ -53,7 +67,7 @@ const handleSubmit = (values) => {
   console.log(values)
 };
 const SignUp = () => {
-
+     const [selectedType, setSelectedType] = useState("");
   return (
     <section className="signup">
     <div className="container">
@@ -83,10 +97,36 @@ const SignUp = () => {
                                         name="username"
                                         component="small"
                                         className="text-danger"
+                            />
+                      </div>
+                      <Field
+                    id="type" 
+                    name="type"
+                    as={Select}
+                    options={typeOptions}
+                    placeholder="Selectioner le type de compte"
+                    onChange = {(e,selected) => {
+                        setSelectedType(e.value);
+                        console.log(selectedType);
+                        console.log(selected);
+                        console.log(selected.value);
+                        console.log(e);
+                        console.log(e.value);
+
+
+                    }}
+                  />
+                      <div className="form-group">
+                          <label htmlFor="selectedType"><i className="zmdi zmdi-accounts-alt material-icons-name"></i></label>
+                          
+                          <ErrorMessage
+                                        name="type"
+                                        component="small"
+                                        className="text-danger"
                                     />
                       </div>
                       <div className="form-group">
-                          <label htmlFor="adress"><i className="zmdi zmdi zmdi-pin material-icons-name"></i></label>
+                          <label htmlFor="adress"><i className="zmdi zmdi-pin material-icons-name"></i></label>
                           <Field type="text" name="adress" id="adress" placeholder="Adresse"/>
                           <ErrorMessage
                                         name="adress"
