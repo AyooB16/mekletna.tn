@@ -64,6 +64,7 @@ const initialValues = {
   acceptTerms:false,
 };
 const handleSubmit = (values) => {
+     
   console.log(values)
 };
 const SignUp = () => {
@@ -79,7 +80,14 @@ const SignUp = () => {
                         validationSchema={validationSchema}
                         onSubmit={(values) =>handleSubmit(values)}
                 >
-                {() => (
+                { ({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit
+          }) => (
                   <Form  className="register-form" id="register-form" >
                       <div className="form-group">
                           <label htmlFor="name"><i className="zmdi zmdi-account material-icons-name"></i></label>
@@ -99,32 +107,30 @@ const SignUp = () => {
                                         className="text-danger"
                             />
                       </div>
-                      <Field
-                    id="type" 
-                    name="type"
-                    as={Select}
-                    options={typeOptions}
-                    placeholder="Selectioner le type de compte"
-                    onChange = {(e,selected) => {
-                        setSelectedType(e.value);
-                        console.log(selectedType);
-                        console.log(selected);
-                        console.log(selected.value);
-                        console.log(e);
-                        console.log(e.value);
 
 
-                    }}
-                  />
                       <div className="form-group">
                           <label htmlFor="selectedType"><i className="zmdi zmdi-accounts-alt material-icons-name"></i></label>
-                          
-                          <ErrorMessage
+                          <select 
+                                id="type" 
+                                name="type"
+                                className="form-select form-select-sm"
+                                value={values.type}
+                                onChange={handleChange}
+                                placeholder="Selectioner le type de compte"
+                                >
+                                <option value="">Selectioner le type de compte</option>
+                                <option value="client">Client</option>
+                                <option value="traiteur">Traiteur</option>
+                           </select>
+
+                           <ErrorMessage
                                         name="type"
                                         component="small"
                                         className="text-danger"
                                     />
                       </div>
+
                       <div className="form-group">
                           <label htmlFor="adress"><i className="zmdi zmdi-pin material-icons-name"></i></label>
                           <Field type="text" name="adress" id="adress" placeholder="Adresse"/>
