@@ -2,6 +2,13 @@
 display-flex, .display-flex, .display-flex-center, .signup-content, .social-login, .socials {
   display: flex;
   display: -webkit-flex; }
+.select-p{
+  padding: 6px 30px;
+}
+.select-p >label {
+display: flex !important;
+
+}
 
 /* @extend list-type-ulli; */
 list-type-ulli, .socials {
@@ -311,7 +318,7 @@ figure {
 
 .form-group {
   position: relative;
-  margin-bottom: 25px;
+  margin-top: 25px;
   overflow: hidden; }
   .form-group:last-child {
     margin-bottom: 0px; }

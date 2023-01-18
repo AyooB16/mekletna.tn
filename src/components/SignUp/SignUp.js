@@ -1,9 +1,7 @@
 import "./SignUp.css"
 import { useState } from "react";
 import SignUpImage from '../../assets/signup-image.jpg';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
-import Select from "react-select";
 import * as Yup from 'yup';
 import "yup-phone";
 
@@ -84,107 +82,112 @@ const SignUp = () => {
             values,
             errors,
             touched,
-            handleChange,
-            handleBlur,
-            handleSubmit
+            handleChange
           }) => (
                   <Form  className="register-form" id="register-form" >
                       <div className="form-group">
                           <label htmlFor="name"><i className="zmdi zmdi-account material-icons-name"></i></label>
                           <Field type="text" name="name" id="name" placeholder="Nom et Prenom"/>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="name"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group">
                           <label htmlFor="username"><i className="zmdi zmdi-account-o material-icons-name"></i></label>
                           <Field type="text" name="username" id="username" placeholder="Nom d'utilisateur"/>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="username"
                                         component="small"
                                         className="text-danger"
                             />
-                      </div>
-
 
                       <div className="form-group">
                           <label htmlFor="selectedType"><i className="zmdi zmdi-accounts-alt material-icons-name"></i></label>
                           <select 
                                 id="type" 
                                 name="type"
-                                className="form-select form-select-sm"
+                                className="form-select form-select-sm select-p"
                                 value={values.type}
                                 onChange={handleChange}
                                 placeholder="Selectioner le type de compte"
                                 >
-                                <option value="">Selectioner le type de compte</option>
+                                <option value="" disabled>Selectioner le type de compte</option>
                                 <option value="client">Client</option>
                                 <option value="traiteur">Traiteur</option>
                            </select>
 
-                           <ErrorMessage
+                       
+                      </div>
+                      <ErrorMessage
                                         name="type"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
-
                       <div className="form-group">
                           <label htmlFor="adress"><i className="zmdi zmdi-pin material-icons-name"></i></label>
                           <Field type="text" name="adress" id="adress" placeholder="Adresse"/>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="adress"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group">
                           <label htmlFor="phone"><i className="zmdi zmdi-phone material-icons-name"></i></label>
                           <Field type="text" name="phone" id="phone" placeholder="Numéro de téléphone"  />
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="phone"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group">
                           <label htmlFor="email"><i className="zmdi zmdi-email material-icons-name"></i></label>
                           <Field type="email" name="email" id="email" placeholder="Email"/>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="email"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group">
                           <label htmlFor="password"><i className="zmdi zmdi-lock material-icons-name"></i></label>
                           <Field type="password" name="password" id="password" placeholder="Mot de passe"/>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="password"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group">
                           <label htmlFor="confirmPassword"><i className="zmdi zmdi-lock-outline material-icons-name"></i></label>
                           <Field type="password" name="confirmPassword" id="confirmPassword" placeholder="Repeter mot de passe"/>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="confirmPassword"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group">
                           <Field type="checkbox" name="acceptTerms" id="acceptTerms" className="agree-term" />
                           <label htmlFor="acceptTerms" className="label-agree-term"><span><span></span></span>J'ai lu et j'accepte les  <a href="#" className="term-service">Termes et Conditions  </a></label>
-                          <ErrorMessage
+
+                      </div>
+                      <ErrorMessage
                                         name="acceptTerms"
                                         component="small"
                                         className="text-danger"
                                     />
-                      </div>
                       <div className="form-group form-button">
                       <input type="submit" className="form-submit" value="Register"/>
                       </div>
