@@ -1,10 +1,15 @@
 import { useState } from "react";
+import './AddPlat.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import {Formik, Field, Form, ErrorMessage} from 'formik';
+import {Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import MenuItem from '@mui/material/MenuItem';
-
+const typePlats=[
+  {id:0 , label:"Entrées" , value:"entree"},
+  {id:1 , label:"Plat principal" , value:"principal"},
+  {id:2 , label:"Desserts" , value:"dessert"},
+]
 const categories = [
     {
       id:0,
@@ -84,7 +89,7 @@ const categories = [
         .required("Ce champ est obligatoire"),
     descripton: Yup.string()
         .min(8, "Descripton minimum 8 caracteres")
-        .max(50, "Descripton maximum 50 caracteres")
+        .max(250, "Descripton maximum 250 caracteres")
         .required("Ce champ est obligatoire"),
     type: Yup.string()
         .required("Ce champ est obligatoire"),
@@ -116,12 +121,15 @@ const handleSubmit = (values) => {
 
 const AddPlat = () => {
   const [selectedCategory, setSelectedCategory] = useState({});
+  const [selectedSubategory, setSelectedSubategory] = useState({});
+
   return (
-    <Formik
-    initialValues={initialValues}
-    validationSchema={validationSchema}
-    onSubmit={(values) =>handleSubmit(values)}
->
+    <div className="form-container">
+      <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values) =>handleSubmit(values)}
+      >
       { ({
               values,
               errors,
@@ -130,16 +138,13 @@ const AddPlat = () => {
               handleBlur
       }) => (
     
-        <Box
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-      >
-          <Form  className="register-form" id="register-form" >
-            <h4 className="mb-3">Personal information</h4>
+        <Box>
+          <Form id="add-plat" >
+            <h4 className="mb-3">Ajouter Plat</h4>
 
             <div>
               <TextField
+               sx={{m: 1, width: '30ch'} }
                     required
                     type="text" 
                     id="namePlat" 
@@ -154,73 +159,103 @@ const AddPlat = () => {
                     helperText=  {errors.namePlat && touched.namePlat ?     
                       errors.namePlat
                     : null}
-                  />       
-              </div>
-              <div >
-                <TextField
-                  required
-                  select
-                  id="category" 
-                  name="category" 
-                  label="Categorie"
-                  value={values.category}
-                  onChange={handleChange }
-                  onBlur={handleBlur}
-                  error={errors.category && touched.category ?     
-                    true
-                  : null}
-                  helperText=  {errors.category && touched.category ?     
-                    errors.category
-                  : null}
-                >
-                  {categories.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  />
+                  <TextField
+                      sx={{m: 1, width: '30ch'} }
+                      required
+                      select
+                      type="text" 
+                      id="type" 
+                      name="type" 
+                      label="Type"
+                      value={values.type}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.type && touched.type ?     
+                        true
+                      : null}
+                      helperText=  {errors.type && touched.type ?     
+                        errors.type
+                      : null}
+                  >
+                      {typePlats.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                  </TextField>
+                 
               </div>
               <div >
 
-                    {values.category!=="" ?
-                                               
-                      <TextField
+              </div>
+              <div >
+                  <TextField
+                    sx={{m: 1, width: '30ch'} }
                       required
-                      type="text" 
-                      
-                      id="subcategory" 
-                      name="subcategory" 
-                      label="Sous categorie"
-                      value={values.subcategory}
-                      onChange={handleChange}
+                      select
+                      id="category" 
+                      name="category" 
+                      label="Catégorie"
+                      value={values.category}
+                      onChange={(e)=>{handleChange(e); values.subcategory="";  setSelectedCategory(categories.find(({ value }) => value === e.target.value));} }
                       onBlur={handleBlur}
-                      error={errors.subcategory && touched.subcategory ?     
+                      error={errors.category && touched.category ?     
                         true
                       : null}
-                      helperText=  {errors.subcategory && touched.subcategory ?     
-                        errors.subcategory
+                      helperText=  {errors.category && touched.category ?     
+                        errors.category
                       : null}
-                      select
                     >
-                    {categories.find(({ value }) => value === values.category).subcategories.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-          
+                      {categories.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
                     </TextField>
+                    {values.category!==""  ?                  
+                        <TextField
+                        required
+                        type="text" 
+                        sx={{m: 1, width: '30ch'} }
+                        id="subcategory" 
+                        name="subcategory" 
+                        label="Sous-catégorie"
+                        value={values.subcategory}
+                        onChange={(e)=>{handleChange(e);
+                          setSelectedSubategory(selectedCategory.subcategories.find(({ value }) => value === e.target.value));
+                          values.subcategory2="";
+                        } 
+                          }
+                        onBlur={handleBlur}
+                        error={errors.subcategory && touched.subcategory ?     
+                          true
+                        : null}
+                        helperText=  {errors.subcategory && touched.subcategory ?     
+                          errors.subcategory
+                        : null}
+                        select
+                      >
+                      {selectedCategory.subcategories.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                      </TextField>
                     : null}
+ 
               </div>
             
 
-            <div >
-            {values.subcategory!=="" ?     
+              <div >
+                  {values.subcategory!==""?     
                       <TextField
+                      sx={{m: 1, width: '30ch'} }
                       required
                       type="text" 
                       id="subcategory2" 
                       name="subcategory2" 
-                      label="subcategory2"
+                      label="Sous-catégorie secondaire"
                       value={values.subcategory2}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -231,58 +266,24 @@ const AddPlat = () => {
                         errors.subcategory2
                       : null}
                       select
-                    >
-                    {categories.find(({ value }) => value === values.category).subcategories.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-          
+                      >
+                      {selectedSubategory.subcategories2.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                    ))}
                     </TextField>
-                    : null}
-            </div>
-
-          
-
+                    : null} 
+              </div>
+             
               <div>
-                 <TextField
-                    required
-                    type="text" 
-                    id="descripton" 
-                    name="descripton" 
-                    label="descripton"
-                    value={values.descripton}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.descripton && touched.descripton ?     
-                      true
-                    : null}
-                    helperText=  {errors.descripton && touched.descripton ?     
-                      errors.descripton
-                    : null}
-                  /> 
-                  <TextField
-                      required
-                      type="text" 
-                      id="type" 
-                      name="type" 
-                      label="type"
-                      value={values.type}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={errors.type && touched.type ?     
-                        true
-                      : null}
-                      helperText=  {errors.type && touched.type ?     
-                        errors.type
-                      : null}
-                  /> 
-                  <TextField
+              <TextField
+                      sx={{m: 1, width: '30ch'} }
                       required
                       type="number" 
                       id="nbPersonne" 
                       name="nbPersonne" 
-                      label="nbPersonne"
+                      label="Nombre de personnes"
                       value={values.nbPersonne}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -294,11 +295,12 @@ const AddPlat = () => {
                       : null}
                   /> 
                   <TextField
+                      sx={{m: 1, width: '30ch'} }
                       required
                       type="number" 
                       id="type" 
                       name="price" 
-                      label="price"
+                      label="Prix"
                       value={values.price}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -310,17 +312,39 @@ const AddPlat = () => {
                       : null}
                   /> 
               </div>
-              <div >
+              <div>
+                 <TextField
+                    sx={{m: 1, width: '62ch'} }
+                    
+                    id="descripton" 
+                    name="descripton" 
+                    label="Description du plat"
+                    multiline
+                    rows={5} 
+                    variant="outlined"
+                    required
+                    type="text"
+                    value={values.descripton}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={errors.descripton && touched.descripton ?     
+                      true
+                    : null}
+                    helperText=  {errors.descripton && touched.descripton ?     
+                      errors.descripton
+                    : null}
+                  /> 
 
               </div>
 
-            <hr className="mb-4"/>
-            <input type="submit" className="form-submit" value="Register"/>
+            
+            <input type="submit" className="form-submit" value="Ajouter Plat"/>
             </Form>
            </Box>
            
       ) }
     </Formik>
+    </div>
   )
 }
 
