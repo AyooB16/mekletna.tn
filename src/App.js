@@ -6,7 +6,7 @@ import UploadAndDisplayImage from './components/UploadAndDisplayImage/UploadAndD
 function App() {
   return (
     <div className="App">
-      <SignUp/>
+      <AddPlat/>
       
     </div>
   );

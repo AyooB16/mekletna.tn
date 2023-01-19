@@ -3,41 +3,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import MenuItem from '@mui/material/MenuItem';
 
-const validationSchema = Yup.object().shape({
-
-  labelPlat: Yup.string()
-      .min(4, "Libellé plat minimum 4 caracteres")
-      .max(30, "Libellé plat maximum 50 caracteres")
-      .required("Ce champ est obligatoire"),
-  category: Yup.string()
-      .required("Ce champ est obligatoire"),
-  subcategory: Yup.string()
-      .required("Ce champ est obligatoire"),
-  subcategory2: Yup.string()
-      .required("Ce champ est obligatoire"),
-  descripton: Yup.string()
-      .min(8, "Descripton minimum 8 caracteres")
-      .max(50, "Descripton maximum 50 caracteres")
-      .required("Ce champ est obligatoire"),
-  type: Yup.string()
-      .required("Ce champ est obligatoire"),
-  nbPersonne:Yup.number()
-      .required("Ce champ est obligatoire")
-      .min(1,"Minimum une personne")
-      .max(4,"Maximum 4 personnes"),
-  price:Yup.number()
-      .required("Ce champ est obligatoire")
-      .min(1,"Minimum 1 DT")
-      .max(200,"Maximum 200 DT"),
-    
-
-  email: Yup.string()
-      .email("Email invalide")
-      .required("L'email est obligatoire"),
-
-
-});
 const categories = [
     {
       id:0,
@@ -104,145 +71,254 @@ const categories = [
       ]
     }
   ];
- 
+  const validationSchema = Yup.object().shape({
+    namePlat: Yup.string()
+        .min(4, "Libellé plat minimum 4 caracteres")
+        .max(30, "Libellé plat maximum 50 caracteres")
+        .required("Ce champ est obligatoire"),
+    category: Yup.string()
+        .required("Ce champ est obligatoire"),
+    subcategory: Yup.string()
+        .required("Ce champ est obligatoire"),
+    subcategory2: Yup.string()
+        .required("Ce champ est obligatoire"),
+    descripton: Yup.string()
+        .min(8, "Descripton minimum 8 caracteres")
+        .max(50, "Descripton maximum 50 caracteres")
+        .required("Ce champ est obligatoire"),
+    type: Yup.string()
+        .required("Ce champ est obligatoire"),
+    nbPersonne:Yup.number()
+        .required("Ce champ est obligatoire")
+        .min(1,"Minimum une personne")
+        .max(4,"Maximum 4 personnes"),
+    price:Yup.number()
+        .required("Ce champ est obligatoire")
+        .min(1,"Minimum 1 DT")
+        .max(200,"Maximum 200 DT"),
+  });
+const handleSubmit = (values) => {
+     
+    console.log(values)
+  };
+
+  const initialValues = 
+  {
+    namePlat:"",
+    category: "",
+    subcategory: "",
+    subcategory2: "",
+    descripton: "",
+    type: "",
+    nbPersonne: "",
+    price:0
+  };
+
 const AddPlat = () => {
+  const [selectedCategory, setSelectedCategory] = useState({});
   return (
     <Formik
-      initialValues={{
-        labelPlat: '',
-        lastname: '',
-        email: '',
-        country: '',
-        state: '',
-        zip: '' 
-      }}
-      validationSchema = {validationSchema}
-      onSubmit={() => {
-       console.log('form submitted')
-      }}
-    >
+    initialValues={initialValues}
+    validationSchema={validationSchema}
+    onSubmit={(values) =>handleSubmit(values)}
+>
       { ({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur
       }) => (
-      <div className="container">
-
-        <div className="col-md-12 mt-5">
-          <form onSubmit={handleSubmit}>
+    
+        <Box
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+      >
+          <Form  className="register-form" id="register-form" >
             <h4 className="mb-3">Personal information</h4>
 
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label htmlFor="labelPlat">First name</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  id="labelPlat" 
-                  name="labelPlat" 
-                  value={values.labelPlat}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.labelPlat && touched.labelPlat ?
-                  <span style={{color: 'red'}}>
-                    {errors.labelPlat}
-                  </span>
-                : null} 
+            <div>
+              <TextField
+                    required
+                    type="text" 
+                    id="namePlat" 
+                    name="namePlat" 
+                    label="Nom du plat"
+                    value={values.namePlat}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={errors.namePlat && touched.namePlat ?     
+                      true
+                    : null}
+                    helperText=  {errors.namePlat && touched.namePlat ?     
+                      errors.namePlat
+                    : null}
+                  />       
               </div>
-              <div className="col-md-6 mb-3">
-                <label htmlFor="lastname">Last name</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  id="lastname" 
-                  name="lastname" 
-                  value={values.lastname}
-                  onChange={handleChange}
+              <div >
+                <TextField
+                  required
+                  select
+                  id="category" 
+                  name="category" 
+                  label="Categorie"
+                  value={values.category}
+                  onChange={handleChange }
                   onBlur={handleBlur}
-                />
-                {errors.lastname && touched.lastname ?
-                  <span style={{color: 'red'}}>
-                    {errors.lastname}
-                  </span>
-                : null} 
+                  error={errors.category && touched.category ?     
+                    true
+                  : null}
+                  helperText=  {errors.category && touched.category ?     
+                    errors.category
+                  : null}
+                >
+                  {categories.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </div>
+              <div >
+
+                    {values.category!=="" ?
+                                               
+                      <TextField
+                      required
+                      type="text" 
+                      
+                      id="subcategory" 
+                      name="subcategory" 
+                      label="Sous categorie"
+                      value={values.subcategory}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.subcategory && touched.subcategory ?     
+                        true
+                      : null}
+                      helperText=  {errors.subcategory && touched.subcategory ?     
+                        errors.subcategory
+                      : null}
+                      select
+                    >
+                    {categories.find(({ value }) => value === values.category).subcategories.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+          
+                    </TextField>
+                    : null}
+              </div>
+            
+
+            <div >
+            {values.subcategory!=="" ?     
+                      <TextField
+                      required
+                      type="text" 
+                      id="subcategory2" 
+                      name="subcategory2" 
+                      label="subcategory2"
+                      value={values.subcategory2}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.subcategory2 && touched.subcategory2 ?     
+                        true
+                      : null}
+                      helperText=  {errors.subcategory2 && touched.subcategory2 ?     
+                        errors.subcategory2
+                      : null}
+                      select
+                    >
+                    {categories.find(({ value }) => value === values.category).subcategories.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+          
+                    </TextField>
+                    : null}
             </div>
 
-            <div className="mb-3">
-              <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                className="form-control" 
-                id="email" 
-                name="email" 
-                placeholder="you@example.com" 
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.email && touched.email ?
-                <span style={{color: 'red'}}>
-                  {errors.email}
-                </span>
-              : null} 
-            </div>
+          
 
-            <div className="row">
-              <div className="col-md-5 mb-3">
-                <label htmlFor="country">Country</label>
-                <select 
-                  className="custom-select d-block w-100" 
-                  id="country" 
-                  name="country" 
-                  value={values.country}
-                  onChange={handleChange}
-                >
-                  <option value="">Choose...</option>
-                  <option value="NIG">Nigeria</option>
-                  <option value="GH">Ghana</option>
-                  <option value="SA">South Africa</option>
-                </select>        
+              <div>
+                 <TextField
+                    required
+                    type="text" 
+                    id="descripton" 
+                    name="descripton" 
+                    label="descripton"
+                    value={values.descripton}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={errors.descripton && touched.descripton ?     
+                      true
+                    : null}
+                    helperText=  {errors.descripton && touched.descripton ?     
+                      errors.descripton
+                    : null}
+                  /> 
+                  <TextField
+                      required
+                      type="text" 
+                      id="type" 
+                      name="type" 
+                      label="type"
+                      value={values.type}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.type && touched.type ?     
+                        true
+                      : null}
+                      helperText=  {errors.type && touched.type ?     
+                        errors.type
+                      : null}
+                  /> 
+                  <TextField
+                      required
+                      type="number" 
+                      id="nbPersonne" 
+                      name="nbPersonne" 
+                      label="nbPersonne"
+                      value={values.nbPersonne}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.nbPersonne && touched.nbPersonne ?     
+                        true
+                      : null}
+                      helperText=  {errors.nbPersonne && touched.nbPersonne ?     
+                        errors.nbPersonne
+                      : null}
+                  /> 
+                  <TextField
+                      required
+                      type="number" 
+                      id="type" 
+                      name="price" 
+                      label="price"
+                      value={values.price}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.price && touched.price ?     
+                        true
+                      : null}
+                      helperText=  {errors.price && touched.price ?     
+                        errors.price
+                      : null}
+                  /> 
               </div>
-              <div className="col-md-4 mb-3">
-                <label htmlFor="state">State</label>
-                <select 
-                  className="custom-select d-block w-100" 
-                  id="state" 
-                  name="state" 
-                  value={values.state}
-                  onChange={handleChange}
-                >
-                  <option value="">Choose...</option>
-                  <option value="lagos">Lagos</option>
-                  <option value="east legion">East Legion</option>
-                  <option value="cape town">Cape Town</option>
-                </select>             
+              <div >
+
               </div>
-              <div className="col-md-3 mb-3">
-                <label htmlFor="zip">Zip</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  id="zip" 
-                  name="zip" 
-                  value={values.zip}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
 
             <hr className="mb-4"/>
-            <button className="btn btn-primary btn-lg btn-block" type="submit">
-             Submit
-            </button>
-          </form>
-        </div>
-
-      </div>
+            <input type="submit" className="form-submit" value="Register"/>
+            </Form>
+           </Box>
+           
       ) }
     </Formik>
   )
