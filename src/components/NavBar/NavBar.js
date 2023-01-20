@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -89,11 +88,14 @@ const NavBar = () => {
               }}
             >
               
-                <MenuItem onClick={handleCloseNavMenu}>
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to={"/ajouter-plat"}>
                   <Typography textAlign="center">Ajouter Produit</Typography>
                 </MenuItem>
-                <MenuItem  onClick={handleCloseNavMenu}>
+                <MenuItem  onClick={handleCloseNavMenu} component={Link} to={"/signup"}>
                   <Typography textAlign="center">Sign Up</Typography>
+                </MenuItem>
+                <MenuItem  onClick={handleCloseNavMenu} component={Link} to={"/signin"}>
+                  <Typography textAlign="center">Sign In</Typography>
                 </MenuItem>
             </Menu>
           </Box>
@@ -135,6 +137,16 @@ const NavBar = () => {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 SignUp
+              </Button>
+              
+              <Button
+                
+                component={Link}
+                onClick={handleCloseNavMenu}
+                to="/signin" 
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                SignIn
               </Button>
           </Box>
 

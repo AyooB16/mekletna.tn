@@ -1,9 +1,8 @@
 import "./SignUp.css"
 import { useState } from "react";
 import SignUpImage from '../../assets/signup-image.jpg';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
-import Select from "react-select";
+import { Link } from "react-router-dom";
 import * as Yup from 'yup';
 import "yup-phone";
 
@@ -199,7 +198,7 @@ const SignUp = () => {
             </div>
             <div className="signup-image">
                 <figure><img src={SignUpImage} alt="sing up image"/></figure>
-                <a href="#" className="signup-image-link">I am already member</a>
+                <Link to={"/signin"} className="signup-image-link">J'ai déjà un compte</Link>
             </div>
         </div>
     </div>
