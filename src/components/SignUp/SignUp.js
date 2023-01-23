@@ -1,5 +1,4 @@
 import "./SignUp.css"
-import { useState } from "react";
 import SignUpImage from '../../assets/signup-image.jpg';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import { Link } from "react-router-dom";
@@ -33,8 +32,7 @@ type: Yup.string()
       .required("Mot de passe est obligatoire")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*+-])(?=.{8,})/,
-        "Minimum 8 caractères, Caractère majuscule, Caractère minuscule, Nombre et un Caractère speciale"
-      )
+        "Minimum 8 caractères, Caractère majuscule, Caractère minuscule, Nombre et un Caractère speciale")
       .max(50, "Mot de passe doit être plus petit que 50 caractères"),
   confirmPassword: Yup.string()
       .required("Confirmation de mot de passe est obligatoire")
@@ -45,21 +43,15 @@ type: Yup.string()
   acceptTerms: Yup.bool().oneOf([true], "Accepter les conditions est obligatoire"),
 
 });
-const typeOptions = [
-    { label: "Client", value: "client" },
-    { label: "Traiteur", value: "traiteur" }
-  ];
- 
-
 const initialValues = {
-  name: "",
-  username: "",
+  name:"",
+  username:"",
   adress:"",
   phone:"",
-  email: "",
+  email:"",
   type:"",
-  password: "",
-  confirmPassword: "",
+  password:"",
+  confirmPassword:"",
   acceptTerms:false,
 };
 const handleSubmit = (values) => {
@@ -67,7 +59,6 @@ const handleSubmit = (values) => {
   console.log(values)
 };
 const SignUp = () => {
-     const [selectedType, setSelectedType] = useState("");
   return (
     <section className="signup">
     <div className="container">
@@ -89,7 +80,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="name"><i className="zmdi zmdi-account material-icons-name"></i></label>
                           <Field type="text" name="name" id="name" placeholder="Nom et Prenom"/>
-                          
                       </div>
                       <ErrorMessage
                                         name="name"
@@ -99,14 +89,12 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="username"><i className="zmdi zmdi-account-o material-icons-name"></i></label>
                           <Field type="text" name="username" id="username" placeholder="Nom d'utilisateur"/>
-                          
                       </div>
                       <ErrorMessage
                                         name="username"
                                         component="small"
                                         className="text-danger"
                             />
-
                       <div className="form-group">
                           <label htmlFor="selectedType"><i className="zmdi zmdi-accounts-alt material-icons-name"></i></label>
                           <select 
@@ -121,9 +109,7 @@ const SignUp = () => {
                                 <option value="client">Client</option>
                                 <option value="traiteur">Traiteur</option>
                            </select>
-
                       </div>
-
                       <ErrorMessage
                                         name="type"
                                         component="small"
@@ -132,7 +118,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="adress"><i className="zmdi zmdi-pin material-icons-name"></i></label>
                           <Field type="text" name="adress" id="adress" placeholder="Adresse"/>
-
                       </div>
                       <ErrorMessage
                                         name="adress"
@@ -142,7 +127,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="phone"><i className="zmdi zmdi-phone material-icons-name"></i></label>
                           <Field type="text" name="phone" id="phone" placeholder="Numéro de téléphone"  />
-
                       </div>
                       <ErrorMessage
                                         name="phone"
@@ -152,7 +136,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="email"><i className="zmdi zmdi-email material-icons-name"></i></label>
                           <Field type="email" name="email" id="email" placeholder="Email"/>
-                          
                       </div>
                       <ErrorMessage
                                         name="email"
@@ -162,7 +145,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="password"><i className="zmdi zmdi-lock material-icons-name"></i></label>
                           <Field type="password" name="password" id="password" placeholder="Mot de passe"/>
-                          
                       </div>
                       <ErrorMessage
                                         name="password"
@@ -172,7 +154,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <label htmlFor="confirmPassword"><i className="zmdi zmdi-lock-outline material-icons-name"></i></label>
                           <Field type="password" name="confirmPassword" id="confirmPassword" placeholder="Repeter mot de passe"/>
-                          
                       </div>
                       <ErrorMessage
                                         name="confirmPassword"
@@ -182,7 +163,6 @@ const SignUp = () => {
                       <div className="form-group">
                           <Field type="checkbox" name="acceptTerms" id="acceptTerms" className="agree-term" />
                           <label htmlFor="acceptTerms" className="label-agree-term"><span><span></span></span>J'ai lu et j'accepte les  <a href="#" className="term-service">Termes et Conditions  </a></label>
-                          
                       </div>
                       <ErrorMessage
                                         name="acceptTerms"

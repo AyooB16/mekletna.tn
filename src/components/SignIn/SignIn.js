@@ -85,9 +85,10 @@ const SignIn = () => {
                                                 className="text-danger"
                                             />
                               {message}
-                              <div className="form-group form-button">
+                              <Link to={"/forgot-password"} className="forgot-pass-link">Mot de passe oublié ?</Link>
+                              
                                 <input type="submit" name="signin" id="signin" className="form-submit" value="Log in"/>
-                              </div>
+                             
                           </Form>
                           )}
                         </Formik>

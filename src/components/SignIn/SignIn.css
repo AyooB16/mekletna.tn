@@ -291,7 +291,11 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
   
   #signin {
     margin-top: 16px; }
-  
+  .forgot-pass-link {
+      font-size: 14px;
+      color: #222;
+      display: block;
+      text-align:left; }
   .signup-image-link {
     font-size: 14px;
     color: #222;
