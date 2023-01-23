@@ -1,11 +1,41 @@
 
-
+import { useState, useEffect } from "react";
 import { Container } from "@mui/material";
 import Plats from "../../json/plats.json";
-function addToCart (idPlat){
-    console.log(idPlat)
+function saveCart(cart) {
+  if (window.localStorage)
+  {
+      localStorage.cart = JSON.stringify(cart);
+  }
+}
+
+function addToCart (cart,setCart,idPlat){
+    console.log(idPlat);
+    for (var i in cart) {
+      if(cart[i].id == idPlat)
+      {
+          cart[i].qty++;
+          saveCart(cart);
+          console.log(cart);
+
+          return;
+      }
+  }
+  var item = { id: idPlat, qty: 1 };
+  setCart([...cart,item]);
+  saveCart(cart);
+  console.log(cart);
+
   };
 const ListPlats = () => {
+    const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        if (localStorage.getItem("cart")) {
+            setCart(JSON.parse(localStorage.getItem("cart")));
+        }
+    },[]);
+  
   return (
     <Container >
     <div className="row row-cols-2 row-cols-md-4 g-4 card-group">
@@ -23,7 +53,7 @@ const ListPlats = () => {
                         <span>Prix: {plat.price} DT</span> <br/>
                     </p>
                     </div>
-                    <button type="button" className="btn btn-primary btn-sm" onClick={addToCart(plat.id)}>Ajouter au panier</button>
+                    <button type="button" className="btn btn-primary btn-sm" onClick={()=>addToCart(cart,setCart,plat.id)}>Ajouter au panier</button>
                     </div>
                     
                 </div>

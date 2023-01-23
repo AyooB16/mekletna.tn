@@ -48,9 +48,11 @@ const handleSubmit = (values) => {
   };
 const ResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-  
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
@@ -128,16 +130,16 @@ const ResetPassword = () => {
                           true
                         : null} htmlFor="confirmPassword">Confirmer nouveau mot de passe</InputLabel>
                     <OutlinedInput
-                        type={showPassword ? 'text' : 'password'}
+                        type={showConfirmPassword ? 'text' : 'password'}
                         endAdornment={
                         <InputAdornment position="end">
                             <IconButton
                             aria-label="Clicker pour afficher le mot de passe de confirmation"
-                            onClick={handleClickShowPassword}
+                            onClick={handleClickShowConfirmPassword}
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                             >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                             </IconButton>
                         </InputAdornment>
                         }

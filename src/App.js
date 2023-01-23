@@ -9,7 +9,7 @@ import SignIn from './components/SignIn/SignIn';
 import ListPlats from './components/ListPlats/ListPlats';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
-
+import Panier from './components/Panier/Panier';
 function App() {
   return (
    
@@ -18,6 +18,7 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path='/' element={<Home/>} />
+          <Route path='/panier' element={<Panier/>} />
           <Route path='/ajouter-plat' element={<AddPlat/>} />
           <Route path='/signup' element={<SignUp/>} />
           <Route path='/signin' element={<SignIn/>} />

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Grid from "@mui/material/Grid";
 import './AddPlat.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -247,7 +248,7 @@ const AddPlat = () => {
               </div>
             
 
-              <div >
+              <div  >
                   {values.subcategory!==""?     
                       <TextField
                       sx={{m: 1, width: '30ch'} }
@@ -311,11 +312,12 @@ const AddPlat = () => {
                         errors.price
                       : null}
                   /> 
-              </div>
-              <div>
+              </div> 
+              <Grid container spacing={2}>
+              <Grid item  xs={12} >
                  <TextField
-                    sx={{m: 1, width: '62ch'} }
-                    
+                    sx={{m: 1} }
+                    fullWidth
                     id="descripton" 
                     name="descripton" 
                     label="Description du plat"
@@ -335,8 +337,8 @@ const AddPlat = () => {
                     : null}
                   /> 
 
-              </div>
-
+              </Grid>
+              </Grid>
             
             <input type="submit" className="form-submit" value="Ajouter Plat"/>
             </Form>
