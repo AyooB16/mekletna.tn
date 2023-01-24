@@ -16,17 +16,12 @@ function addToCart (cart,setCart,idPlat){
       {
           cart[i].qty++;
           saveCart(cart);
-          console.log(cart);
-
           return;
       }
   }
-  var item = { id: idPlat, qty: 1 };
-  setCart([...cart,item]);
-  saveCart(cart);
-  console.log(cart);
-
+  setCart([...cart,{ id: idPlat, qty: 1 }]);
   };
+
 const ListPlats = () => {
     const [cart, setCart] = useState([]);
 
@@ -35,7 +30,9 @@ const ListPlats = () => {
             setCart(JSON.parse(localStorage.getItem("cart")));
         }
     },[]);
-  
+    useEffect(() => {
+        saveCart(cart);
+    },[cart]);
   return (
     <Container >
     <div className="row row-cols-2 row-cols-md-4 g-4 card-group">
