@@ -9,6 +9,9 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .social-logi
 display: flex !important;
 
 }
+  .button-font{
+    font-family: Poppins;
+  }
 
 /* @extend list-type-ulli; */
 list-type-ulli, .socials {

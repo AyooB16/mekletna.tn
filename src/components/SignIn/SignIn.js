@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import * as Yup from 'yup';
 import { Form } from "formik";
 import { Formik } from 'formik';
-import SignInImage from '../../assets/shutterstock_1439820107-735x490.jpg';
+import SignInImage from '../../assets/shutterstock_780590413.jpg';
 import Users from "../../json/users.json";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required("Nom d'utilisateur est obligatoire")
@@ -33,6 +34,14 @@ const handleSubmit = (values, setConnectedUser) => {
   })
   )
 };
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#F5A12D",
+      contrastText: '#e3f2fd',
+    }
+  },
+});
 const SignIn = () => {
   const [connectedUser, setConnectedUser] = useState("");
   let message;
@@ -44,8 +53,6 @@ const SignIn = () => {
       message = <small className="text-danger">Nom d'utilisateur ou mot de passe invalide</small>
     }
   }
-
-
   return (
 
     <section className="sign-in">
@@ -129,15 +136,18 @@ const SignIn = () => {
                     type="password"
                     id="password"
                   />
-                  <Button
-
+                  <ThemeProvider theme={theme}>
+                    <Button
                     type="submit"
                     fullWidth
+                    color="primary"
                     variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
+                    sx={{ mt: 3, mb: 2  }}
+                    >
                     S'identifier
-                  </Button>
+                    </Button>
+                  </ThemeProvider>
+
                   <Grid container>
                     <Grid item xs>
                       <Link to={"/forgot-password"} className="forgot-pass-link" variant="body2">Mot de passe oublié ?</Link>
