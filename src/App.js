@@ -10,6 +10,7 @@ import ListPlats from './components/ListPlats/ListPlats';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Panier from './components/Panier/Panier';
+import Checkout from './components/Checkout/Checkout';
 function App() {
   return (
    
@@ -25,6 +26,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword/>} />
           <Route path='/reset-password' element={<ResetPassword/>} />
           <Route path='/plat' element={<ListPlats/>} />
+          <Route path='/checkout' element={<Checkout/>} />
         </Routes>
       </Router>
      </>
