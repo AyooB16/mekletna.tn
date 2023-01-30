@@ -1,4 +1,6 @@
 import './App.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import {BrowserRouter as Router , Route , Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignUp from './components/SignUp/SignUp';
@@ -11,11 +13,22 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Panier from './components/Panier/Panier';
 import Checkout from './components/Checkout/Checkout';
+import Button from '@mui/material/Button';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#e0932c",
+      contrastText: '#f5f5ed',
+    }
+  },
+});
 function App() {
   return (
    
      <>
       <Router>
+      <ThemeProvider theme={theme}>
         <NavBar/>
         <Routes>
           <Route path='/' element={<Home/>} />
@@ -28,6 +41,7 @@ function App() {
           <Route path='/plat' element={<ListPlats/>} />
           <Route path='/checkout' element={<Checkout/>} />
         </Routes>
+      </ThemeProvider>
       </Router>
      </>
    

@@ -13,4 +13,8 @@
     margin-top: 25px;
     cursor: pointer; }
     .button:hover {
-      background: #4292dc; }
+      background: #4292dc; 
+      
+    }
+    :root {
+      --bs-link-hover-color:rgb(212, 212, 212);}

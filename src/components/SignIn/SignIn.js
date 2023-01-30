@@ -34,14 +34,7 @@ const handleSubmit = (values, setConnectedUser) => {
   })
   )
 };
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#F5A12D",
-      contrastText: '#e3f2fd',
-    }
-  },
-});
+
 const SignIn = () => {
   const [connectedUser, setConnectedUser] = useState("");
   let message;
@@ -136,7 +129,7 @@ const SignIn = () => {
                     type="password"
                     id="password"
                   />
-                  <ThemeProvider theme={theme}>
+
                     <Button
                     type="submit"
                     fullWidth
@@ -146,7 +139,7 @@ const SignIn = () => {
                     >
                     S'identifier
                     </Button>
-                  </ThemeProvider>
+
 
                   <Grid container>
                     <Grid item xs>
