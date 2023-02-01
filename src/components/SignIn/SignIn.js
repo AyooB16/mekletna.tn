@@ -5,12 +5,11 @@ import * as Yup from 'yup';
 import { Form } from "formik";
 import { Formik } from 'formik';
 import SignInImage from '../../assets/shutterstock_780590413.jpg';
-import Users from "../../json/users.json";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from "react-redux";
 const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required("Nom d'utilisateur est obligatoire")
@@ -25,25 +24,29 @@ const initialValues = {
   password: "",
 };
 
-const handleSubmit = (values, setConnectedUser) => {
-  setConnectedUser(Users.find(element => {
-    if (element.username === values.username && element.password === values.password) {
-      return true;
-    }
-    return false;
-  })
-  )
-};
+
 
 const SignIn = () => {
-  const [connectedUser, setConnectedUser] = useState("");
+  const user = useSelector(state => state.connectedUser);
   let message;
-  if (connectedUser !== "") {
-    if (connectedUser) {
+  const dispatch = useDispatch()
+  const handleSubmit = (payload) => {
+    dispatch(
+    { type : "SIGN_IN",
+    payload}
+    )
+
+
+  };
+  
+  if(user!=""){
+    if (user) {
       message = <small className="text-success">Connected</small>
+      console.log(user)
     }
-    else if (!connectedUser) {
+    else  {
       message = <small className="text-danger">Nom d'utilisateur ou mot de passe invalide</small>
+      console.log(user)
     }
   }
   return (
@@ -81,7 +84,7 @@ const SignIn = () => {
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
-              onSubmit={(values) => handleSubmit(values, setConnectedUser)}
+              onSubmit={(values) => handleSubmit(values)}
             >
               {({
                 values,

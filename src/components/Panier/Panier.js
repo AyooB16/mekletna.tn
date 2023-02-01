@@ -92,7 +92,7 @@ const Panier = () => {
         <div className="col-lg-12 col-md-12 col-12">
           <h3 className="display-5 mb-2 text-center">Panier</h3>
           <p className="mb-5 text-center">
-            <i className="text-info font-weight-bold">{cartObj.length}</i> commandes dans votre panier</p>
+            <i className="text-info font-weight-bold">{cart.length}</i> plats dans votre panier</p>
             
             {cartObj.map((item)=>(
               <div  key={item.traiteur}>

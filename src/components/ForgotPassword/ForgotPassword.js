@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Formik,Form} from 'formik';
 import * as Yup from 'yup';
-const theme = createTheme();
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -31,7 +31,7 @@ const handleSubmit = (values) => {
 
 const ForgotPassword = () => {
     return (
-        <ThemeProvider theme={theme}  >
+        
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -93,7 +93,7 @@ const ForgotPassword = () => {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  <b>Envoyer un lien de connexion</b>
+                  Envoyer un lien de connexion
                 </Button>
                 </Form>
                   )}
@@ -107,7 +107,7 @@ const ForgotPassword = () => {
                 </Grid>
               </Box>
           </Container>
-        </ThemeProvider>
+        
       );
 }
 

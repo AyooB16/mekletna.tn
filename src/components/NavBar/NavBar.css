@@ -11,10 +11,9 @@
     -o-border-radius: 5px;
     -ms-border-radius: 5px;
     margin-top: 25px;
-    cursor: pointer; }
-    .button:hover {
-      background: #4292dc; 
-      
-    }
+    cursor: pointer;
+    
+   }
+
     :root {
       --bs-link-hover-color:rgb(212, 212, 212);}

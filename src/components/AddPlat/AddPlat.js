@@ -134,8 +134,9 @@ const AddPlat = () => {
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Box>
             <Form id="add-plat">
-              <h4 className="mb-3">Ajouter Plat</h4>
-              <div className="container">
+             
+              <div className="container2 container px-4 px-lg-5 mt-5">
+              <h4 className="mb-3 mt-5">Ajouter Plat</h4>
               <div>
                 <TextField
                   sx={{ m: 1, width: "30ch" }}

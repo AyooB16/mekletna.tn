@@ -34,31 +34,41 @@ const ListPlats = () => {
         saveCart(cart);
     },[cart]);
   return (
-    <Container >
-    <div className="row row-cols-2 row-cols-md-4 g-4 card-group">
+
+<section className="py-2">
+  <div className="container px-4 px-lg-5 mt-5">
+    <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
         {
             Plats.map((plat) => (
-                <div className="col" key={plat.id}>
-                <div className="card h-100">
-                <img src={plat.image[0]} className="card-img-top" alt={plat.namePlat}/>
-                <div className="card-body">
-                    <h5 className="card-title">{plat.namePlat}</h5>
-                    <p className="card-text">                    
-                        <span>Categorie: {plat.category}</span><br/>
-                        <span>Type du plat: {plat.type}</span> <br/>
+                    <div className="col mb-5"key={plat.id}>
+                     <div className="card h-100">
+
+                    <img className="card-img-top" src={plat.image[0]} alt={plat.namePlat} />
+                    
+                    <div className="card-body text-center">
+                      
+                      <div className="h4 text-primary text-decoration-none">{plat.namePlat}</div>
+                      
+                      <div className="product-price">
                         <span>Nombre de personnes: {plat.nbPersonne}</span> <br/>
-                        <span>Prix: {plat.price} DT</span> <br/>
-                    </p>
-                    </div>
-                    <button type="button" className="btn btn-primary btn-sm" onClick={()=>addToCart(cart,setCart,plat.id)}>Ajouter au panier</button>
+                        <span className="price fw-bold ms-2">{plat.price} DT</span>
+                      </div>
                     </div>
                     
+                    <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div className="text-center">
+                        <a className="btn btn-outline-dark btn-sm mt-auto"  role="button" onClick={()=>addToCart(cart,setCart,plat.id)}><i className="fas fa-shopping-cart"></i> Add to cart</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                
                
             ))
         }
     </div>
-    </Container>
+    </div>
+    </section>
   )
 }
 

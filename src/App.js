@@ -14,13 +14,29 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import Panier from './components/Panier/Panier';
 import Checkout from './components/Checkout/Checkout';
 import Button from '@mui/material/Button';
-
+import TraiteurRoutes from './TraiteurRoutes';
+import GuestRoutes from './GuestRoutes';
+import ClientRoutes from './ClientRoutes';
 const theme = createTheme({
   palette: {
     primary: {
       main: "#e0932c",
       contrastText: '#f5f5ed',
     }
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
   },
 });
 function App() {
@@ -32,14 +48,23 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route path='/panier' element={<Panier/>} />
-          <Route path='/ajouter-plat' element={<AddPlat/>} />
-          <Route path='/signup' element={<SignUp/>} />
-          <Route path='/signin' element={<SignIn/>} />
-          <Route path='/forgot-password' element={<ForgotPassword/>} />
-          <Route path='/reset-password' element={<ResetPassword/>} />
-          <Route path='/plat' element={<ListPlats/>} />
-          <Route path='/checkout' element={<Checkout/>} />
+          
+          <Route element={<GuestRoutes />}>
+            <Route path='/signup' element={<SignUp/>} />
+            <Route path='/signin' element={<SignIn/>} />
+            <Route path='/forgot-password' element={<ForgotPassword/>} />
+            <Route path='/reset-password' element={<ResetPassword/>} />
+          </Route>
+          <Route element={<ClientRoutes />}>
+            <Route path='/panier' element={<Panier/>} />
+            <Route path='/plat' element={<ListPlats/>} />
+            <Route path='/checkout' element={<Checkout/>} />
+          </Route>
+
+
+          <Route element={<TraiteurRoutes />}>
+            <Route path='/ajouter-plat' element={<AddPlat/>} />
+          </Route>
         </Routes>
       </ThemeProvider>
       </Router>
