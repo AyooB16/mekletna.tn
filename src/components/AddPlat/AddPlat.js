@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import MenuItem from "@mui/material/MenuItem";
+import { useSelector } from "react-redux";
 const typePlats = [
   { id: 0, label: "Entrées", value: "entree" },
   { id: 1, label: "Plat principal", value: "principal" },
@@ -105,8 +106,8 @@ const validationSchema = Yup.object().shape({
     .min(1, "Minimum 1 DT")
     .max(200, "Maximum 200 DT"),
 });
-const handleSubmit = (values) => {
-  console.log(values);
+const handleSubmit = (values,userId) => {
+  console.log({...values, idTraiteur: userId});
 };
 
 const initialValues = {
@@ -123,13 +124,14 @@ const initialValues = {
 const AddPlat = () => {
   const [selectedCategory, setSelectedCategory] = useState({});
   const [selectedSubategory, setSelectedSubategory] = useState({});
-
+  const user = useSelector(state => state.connectedUser);
+  
   return (
     <div className="form-container">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => handleSubmit(values)}
+        onSubmit={(values) => handleSubmit(values,user.id)}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Box>
