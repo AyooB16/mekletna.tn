@@ -14,6 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import './NavBar.css'
 import LogoImg from '../../assets/logo.png';
+import LogoMobileImg from '../../assets/logo_mobile.png';
 import ChefAvatar from '../../assets/chef.png';
 import ProfileAvatar from '../../assets/profile.png';
 import { useDispatch, useSelector } from 'react-redux';
@@ -101,25 +102,6 @@ const NavBar = () => {
               Ajouter Plat
             </Button>
   
-            <Button
-              
-              component={Link}
-              onClick={handleCloseNavMenu}
-              to="/signup" 
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              SignUp
-            </Button>
-            
-            <Button
-              
-              component={Link}
-              onClick={handleCloseNavMenu}
-              to="/signin" 
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              SignIn
-            </Button>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -320,6 +302,19 @@ const NavBar = () => {
             }}
           >
             <img src={LogoImg}/>
+          </Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            component={Link}
+            to="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              width : 50
+            }}
+          >
+            <img src={LogoMobileImg}/>
           </Typography>
 
           {navbar}
